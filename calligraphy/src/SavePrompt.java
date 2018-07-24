@@ -3,12 +3,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 public class SavePrompt extends Calligraphy {
 
-	Stage stage = new Stage();
+	Stage window = new Stage();
 	Text text = new Text();
 	Button save = new Button("Save");
 	Button discard = new Button("Discard");
@@ -30,10 +31,12 @@ public class SavePrompt extends Calligraphy {
 		pane.setStyle("-fx-background-color: " + bg + "; -fx-border-color: " + bc + ";");
 
 		Scene scene = new Scene(pane, 400, 100);
-
-		stage.setScene(scene);
-
-		stage.show();
+		
+		window.setResizable(false);
+		window.initModality(Modality.WINDOW_MODAL);
+		window.initOwner(stage);
+		window.setScene(scene);
+		window.show();
 
 		save.setOnAction(e -> {
 
@@ -47,7 +50,7 @@ public class SavePrompt extends Calligraphy {
 				if (file.exists())
 					file = new File("");
 			}
-			stage.close();
+			window.close();
 
 		});
 
@@ -57,10 +60,10 @@ public class SavePrompt extends Calligraphy {
 				ta.clear();
 				if (file.exists())
 					file = new File("");
-				stage.close();
+				window.close();
 			}
 
-			stage.close();
+			window.close();
 
 		});
 
